@@ -2,8 +2,12 @@
   "name": "simple-camera-service",
   "version": "1.0.0",
   "description": "This is a Simple Camera Service using the MediaDevices-Api",
-  "main": "index.js",
+  "main": "CameraService.js",
   "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hschaeufler/simple-camera-service.git"
   },
   "keywords": [
     "Camera",

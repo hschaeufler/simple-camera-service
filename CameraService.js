@@ -91,7 +91,7 @@ const CameraService = (function () {
         return (videoStream && videoStream.active);
     }
 
-    function takePhoto() {
+    async function takePhoto() {
         if (isStreamActive()) {
             let video = document.createElement('video');
             video.autoplay = true;
@@ -147,4 +147,5 @@ const CameraService = (function () {
     }
 })();
 
+module.exports = CameraService;
 export default CameraService;
