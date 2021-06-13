@@ -20,8 +20,8 @@ CameraService.stopStream();
 //For Taking a Photo call
 CameraService.takePhoto()
 
-//Switching Camera
-CameraService.switchCamera()
+//Switching Camera (there is currently a bug in switch Camera with Firefox)
+const stream = await CameraService.switchCamera()
 
 ```
 
