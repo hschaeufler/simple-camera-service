@@ -4,7 +4,6 @@
   "description": "This is a Simple Camera Service using the MediaDevices-Api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "Camera",
@@ -13,5 +12,8 @@
     "MediaDevices"
   ],
   "author": "Holger Schäufler",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
