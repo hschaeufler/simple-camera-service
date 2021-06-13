@@ -1,0 +1,17 @@
+{
+  "name": "simple-camera-service",
+  "version": "1.0.0",
+  "description": "This is a Simple Camera Service using the MediaDevices-Api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Camera",
+    "Service",
+    "Html5",
+    "MediaDevices"
+  ],
+  "author": "Holger Schäufler",
+  "license": "MIT"
+}
