@@ -1,6 +1,6 @@
 {
   "name": "simple-camera-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is a Simple Camera Service using the MediaDevices-Api",
   "main": "CameraService.js",
   "scripts": {},
@@ -14,7 +14,7 @@
     "Html5",
     "MediaDevices"
   ],
-  "author": "Holger Schäufler",
+  "author": "hschaeufler",
   "license": "MIT",
   "dependencies": {
     "jsqr": "^1.4.0",
