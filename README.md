@@ -20,11 +20,11 @@ CameraService.stopStream();
 //For Taking a Photo call
 const dataURL = await CameraService.takePhoto()
 
-//Switching Camera (there is currently a bug in the switchCamera-Functin with Firefox)
+//Switching Camera (there is currently a bug in the switchCamera-Function with Firefox)
 const stream = await CameraService.switchCamera()
 
-//You can also Scan the Stream for a QRCode. The Scanning Stops, when the Stream is not Active anymore
-//For Scanning the Stream jsQR is used. For the result-Object please see: https://github.com/cozmo/jsQR
+//You can also scan the Stream for a QRCode. The Scanning Stops, when the Stream is not active anymore
+//For scanning the Stream jsQR is used. For the result-Object please see: https://github.com/cozmo/jsQR
 function resultCallBack(code){
    console.log(code.data);
 }

@@ -1,6 +1,6 @@
 {
   "name": "simple-camera-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a Simple Camera Service using the MediaDevices-Api",
   "main": "CameraService.js",
   "scripts": {},
