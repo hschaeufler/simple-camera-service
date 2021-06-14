@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import jsQR from "jsqr";
 
 const CameraService = (function () {
 
@@ -91,7 +92,7 @@ const CameraService = (function () {
         return (videoStream && videoStream.active);
     }
 
-    async function takePhoto() {
+    async function drawStreamImageOnCanvas() {
         if (isStreamActive()) {
             let video = document.createElement('video');
             video.autoplay = true;
@@ -109,17 +110,72 @@ const CameraService = (function () {
                     canvas.height = height;
                     let context = canvas.getContext('2d');
                     context.drawImage(video, 0, 0, width, height);
-                    let dataUrl = canvas.toDataURL('image/png');
-                    resolve(dataUrl);
+                    resolve(canvas);
                 });
             });
-
             return photoPromise;
-
-
         }
         throw "Stream is not Active!";
     }
+
+    async function takePhoto() {
+        const canvas = await drawStreamImageOnCanvas();
+        const dataUrl = canvas.toDataURL("image/png");
+        return dataUrl;
+    }
+
+    async function getImageDataOfStream() {
+        const canvas = await drawStreamImageOnCanvas();
+        const context = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+        const imageData = context.getImageData(0, 0, width, height);
+        return imageData;
+    }
+
+    async function scanForQRCode() {
+        let code = null;
+        if (isStreamActive()) {
+            const imageData = await getImageDataOfStream();
+
+            const imageDataArray = imageData.data;
+            const width = imageData.width;
+            const height = imageData.height;
+
+            const options = {
+                inversionAttempts: "dontInvert",
+            };
+
+            code = jsQR(imageDataArray, width, height, options);
+        } else {
+            throw "Stream is not active!";
+        }
+        return code;
+    }
+
+    function scanStreamForQRCode(succesCallBack, streamEndedCallback) {
+        if (!isStreamActive()) {
+            if(streamEndedCallback){
+                streamEndedCallback("Stream is not active!");
+            }
+            return;
+        }
+        window.requestAnimationFrame(async () => {
+            try {
+                const qrCode = await scanForQRCode();
+                if (qrCode) {
+                    succesCallBack(qrCode);
+                }
+                scanStreamForQRCode(succesCallBack, streamEndedCallback);
+            } catch (exception){
+                console.error(exception);
+                if(streamEndedCallback){
+                    streamEndedCallback(exception);
+                }
+            }
+        });
+    }
+
 
     async function getVideoStream(options) {
         if (videoStream) {
@@ -143,9 +199,11 @@ const CameraService = (function () {
         supportsDeviceEnumeration: supportsDeviceEnumeration,
         getVideoStreamById: getVideoStreamById,
         getVideoDevices: getVideoDevices,
-        switchCamera: switchCamera
+        switchCamera: switchCamera,
+        scanForQRCode: scanForQRCode,
+        scanStreamForQRCode: scanStreamForQRCode
     }
-})();
+})
+();
 
-module.exports = CameraService;
 export default CameraService;

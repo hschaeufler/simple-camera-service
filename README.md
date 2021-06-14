@@ -8,7 +8,7 @@ For Using the Service first install as dependency:
 
 ``npm install simple-camera-service``
 
-```
+```javascript
 import CameraService from "simple-camera-service";
 
 //Start Streaming and getting the Stream
@@ -18,10 +18,22 @@ const stream = await CameraService.getDefaultVideoStream();
 CameraService.stopStream();
 
 //For Taking a Photo call
-CameraService.takePhoto()
+const dataURL = await CameraService.takePhoto()
 
-//Switching Camera (there is currently a bug in switch Camera with Firefox)
+//Switching Camera (there is currently a bug in the switchCamera-Functin with Firefox)
 const stream = await CameraService.switchCamera()
+
+//You can also Scan the Stream for a QRCode. The Scanning Stops, when the Stream is not Active anymore
+//For Scanning the Stream jsQR is used. For the result-Object please see: https://github.com/cozmo/jsQR
+function resultCallBack(code){
+   console.log(code.data);
+}
+
+function streamEndedCallback(cause){
+    console.log(cause);
+}
+
+CameraService.scanStreamForQRCode(resultCallBack,streamEndedCallback);            
 
 ```
 
